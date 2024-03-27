@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard</h1>
+    <form id="filterForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="end_year">End Year:</label>
+                    <select class="form-control" name="end_year" id="end_year">
+                        <option value="">Select End Year</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="topic">Topic:</label>
+                    <select class="form-control" name="topic" id="topic">
+                        <option value="">Select Topic</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="sector">Sector:</label>
+                    <select class="form-control" name="sector" id="sector">
+                        <option value="">Select Sector</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="region">Region:</label>
+                    <select class="form-control" name="region" id="region">
+                        <option value="">Select Region</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="pestle">PEST:</label>
+                    <select class="form-control" name="pestle" id="pestle">
+                        <option value="">Select PEST</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="source">Source:</label>
+                    <select class="form-control" name="source" id="source">
+                        <option value="">Select Source</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="swot">SWOT:</label>
+                    <select class="form-control" name="swot" id="swot">
+                        <option value="">Select SWOT</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Add more rows/columns for additional filters -->
+        
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS (optional, for certain features like dropdowns) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    async function populateFilters() {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/dashboard/api');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
+
+            // Populate options for end year filter
+            const endYearSelect = document.getElementById('end_year');
+            const uniqueEndYears = [...new Set(data.map(entry => entry.end_year))].filter(year => year !== null);
+            uniqueEndYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                endYearSelect.appendChild(option);
+            });
+
+            // Populate options for topic filter
+            const topicSelect = document.getElementById('topic');
+            const uniqueTopics = [...new Set(data.map(entry => entry.topic))].filter(topic => topic !== null);
+            uniqueTopics.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                topicSelect.appendChild(option);
+            });
+
+            // Populate options for sector filter
+            const sectorSelect = document.getElementById('sector');
+            const uniqueSectors = [...new Set(data.map(entry => entry.sector))].filter(sector => sector !== null);
+            uniqueSectors.forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector;
+                option.textContent = sector;
+                sectorSelect.appendChild(option);
+            });
+
+            // Populate options for region filter
+            const regionSelect = document.getElementById('region');
+            const uniqueRegions = [...new Set(data.map(entry => entry.region))].filter(region => region !== null);
+            uniqueRegions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region;
+                option.textContent = region;
+                regionSelect.appendChild(option);
+            });
+
+            // Populate options for PEST filter
+            const pestleSelect = document.getElementById('pestle');
+            const uniquePestles = [...new Set(data.map(entry => entry.pestle))].filter(pestle => pestle !== null);
+            uniquePestles.forEach(pestle => {
+                const option = document.createElement('option');
+                option.value = pestle;
+                option.textContent = pestle;
+                pestleSelect.appendChild(option);
+            });
+
+            // Populate options for source filter
+            const sourceSelect = document.getElementById('source');
+            const uniqueSources = [...new Set(data.map(entry => entry.source))].filter(source => source !== null);
+            uniqueSources.forEach(source => {
+                const option = document.createElement('option');
+                option.value = source;
+                option.textContent = source;
+                sourceSelect.appendChild(option);
+            });
+
+            // Populate options for SWOT filter
+            const swotSelect = document.getElementById('swot');
+            const uniqueSWOTs = [...new Set(data.map(entry => entry.swot))].filter(swot => swot !== null);
+            uniqueSWOTs.forEach(swot => {
+                const option = document.createElement('option');
+                option.value = swot;
+                option.textContent = swot;
+                swotSelect.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateFilters();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        #charts,
+        #scatterPlot,
+        #topicsPieChart,
+        #regionsBarChart {
+            height: 500px;
+        }
+        .no-data {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    .center {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="center">Insight Dash</h1>
+        <form id="filterForm" >
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="end_year">End Year:</label>
+                        <select class="form-control" name="end_year" id="end_year">
+                            <option value="">Select End Year</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="topic">Topic:</label>
+                        <select class="form-control" name="topic" id="topic">
+                            <option value="">Select Topic</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="sector">Sector:</label>
+                        <select class="form-control" name="sector" id="sector">
+                            <option value="">Select Sector</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="region">Region:</label>
+                        <select class="form-control" name="region" id="region">
+                            <option value="">Select Region</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="pestle">PEST:</label>
+                        <select class="form-control" name="pestle" id="pestle">
+                            <option value="">Select PEST</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="source">Source:</label>
+                        <select class="form-control" name="source" id="source">
+                            <option value="">Select Source</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more rows/columns for additional filters -->
+            <button class="submit-btn" id = "submit-btn" type="button" class="btn btn-primary" onclick="applyfilters()">Apply Filters</button>
+        </form>
+    </div>
+    <div class="container" style="margin-top:50px" id ="dataDisplay">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="topicsPieChart" class="border p-3 mb-3">Pie Chart</div>
+            </div>
+            <div class="col-md-6">
+                <div id="regionsBarChart" class="border p-3 mb-3">Bar Chart</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="charts" class="border p-3 mb-3">Chart</div>
+            </div>
+            <div class="col-md-6">
+                <div id="scatterPlot" class="border p-3 mb-3">Scatter Plot</div>
+            </div>
+        </div>  
+    </div>
+    <div id="nodataDisplay" class="container" style="display:none">
+        <div class="no-data">No Data Found</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/populateFilters.js' %}"></script>
+    <script src="{% static 'js/fetchAndVisualize.js' %}"></script>
+    <script src="{% static 'js/applyfilters.js' %}"></script>
+</body>
+
+</html>
