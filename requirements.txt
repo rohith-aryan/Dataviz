@@ -71,7 +71,7 @@ pydantic==2.6.3
 pydantic_core==2.16.3
 pyparsing==3.0.9
 pysondb==1.6.7
-python-dateutil==3.9
+python==3.10.11
 pytz==2021.1
 PyYAML==6.0.1
 regex==2023.12.25
