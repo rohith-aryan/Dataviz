@@ -3,3 +3,4 @@ Django==4.0
 django-cors-headers==3.8.0
 django-filter==24.2
 djangorestframework==3.12.4
+python==3.10.11
